@@ -1,7 +1,10 @@
 package com.example.capstone3.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,19 +23,26 @@ public class Contract {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ContractId;
 
-    @NotEmpty(message = "Cannot be Empty")
+    @Column(nullable = false)
+    @NotEmpty(message = "Contract documentation path cannot be empty")
     private String ContractDocumentationPath;
 
-    @NotEmpty(message = "Agree Cost Cannot be Empty")
+    @Column(nullable = false)
+    @NotNull(message = "Agreed cost cannot be null")
+    @Positive(message = "Agreed cost must be positive")
     private Integer agreeCost;
 
-    @NotEmpty(message = "using Years Cannot be Empty")
+    @Column(nullable = false)
+    @NotNull(message = "Using years cannot be null")
+    @Min(value = 1, message = "Using years must be at least 1")
     private Integer usingYears;
 
-    @NotEmpty(message = "start Date Cannot be Empty")
+    @Column(nullable = false)
+    @NotNull(message = "Start date cannot be null")
     private LocalDate startDate;
 
-    @NotEmpty(message = "end Date Cannot be Empty")
+    @Column(nullable = false)
+    @NotNull(message = "End date cannot be null")
     private LocalDate endDate;
 
     private LocalDate paymentDate;
